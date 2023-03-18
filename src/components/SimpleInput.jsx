@@ -1,31 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import useInputCheck from "../hooks/use-input";
 
 const SimpleInput = (props) => {
-  const [nameValue, setNameValue] = useState('');
-  const [nameTouched, setNameTouched] = useState(false);
-  const isNameValid = nameValue.trim() !== '';
-  const nameStatusFalse = !isNameValid && nameTouched;
-  const nameValidClass = nameStatusFalse ? "form-control invalid" : "form-control";
-
-  const nameHandler = event => {
-    setNameValue(event.target.value);
-  };
-  const nameBlurHandler = (event) => {
-    setNameTouched(true);
-  };
-
-  const [emailValue, setEmailValue] = useState('');
-  const [emailTouched, setEmailTouched] = useState(false);
-  const isEmailValid = String(emailValue).trim().includes('@');
-  const emailStatusFalse = !isEmailValid && emailTouched;
-  const emailValidClass = emailStatusFalse ? "form-control invalid" : "form-control";
-
-  const emailHandler = event => {
-    setEmailValue(event.target.value);
-  };
-  const emailBlurHandler = (event) => {
-    setEmailTouched(true);
-  };
+  const {
+    inputHandler: nameHandler,
+    inputBlurHandler: nameBlurHandler,
+    inputValue: nameValue,
+    isInputValid: isNameValid,
+    inputStatusFalse: nameStatusFalse,
+    inputValidClass : nameValidClass,
+    resetInput : resetInputName
+  } = useInputCheck((value) => value.trim() !== '');
+  const {
+    inputHandler: emailHandler,
+    inputBlurHandler: emailBlurHandler,
+    inputValue: emailValue,
+    isInputValid: isEmailValid,
+    inputStatusFalse: emailStatusFalse,
+    inputValidClass: emailValidClass,
+    resetInput: resetInputEmail
+  } = useInputCheck((value) => String(value).trim().includes('@'));
 
   let isFormInvalid = true;
   if (isNameValid && isEmailValid) {
@@ -34,17 +28,13 @@ const SimpleInput = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setNameTouched(true);
-    setEmailTouched(true);
     if (!isNameValid && !isEmailValid) {
       return;
     }
     console.log(nameValue);
     console.log(emailValue);
-    setNameValue('');
-    setNameTouched(false);
-    setEmailValue('');
-    setEmailTouched(false);
+    resetInputName();
+    resetInputEmail();
   };
   return (
     <form onSubmit={submitHandler}>
