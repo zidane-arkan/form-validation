@@ -9,15 +9,15 @@ const useInputBasic = (inputCondition) => {
     const isInputValidate = inputCondition(inputValue);
     const isUserChanged = !isInputValidate && isInputBlured;
     //Change Status Input According To user Activity
-    console.log(isInputValidate);
+    // console.log(isInputValidate);
     const inputValidation = isUserChanged ? 'form-control invalid' : 'form-control ';
 
     const inputValueHandler = (event) => {
-        console.log(isInputValidate);
+        // console.log(isInputValidate);
         setInputValue(event.target.value);
     };
     const inputBlurHandler = () => {
-        console.log(1);
+        // console.log(1);
         setisInputBlured(true);
     };
     //Reset Value

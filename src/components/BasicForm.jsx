@@ -9,7 +9,15 @@ const BasicForm = (props) => {
     inputBlurHandler: firstNameBlurHandler,
     inputValidation: firstNameValidation,
   } = useInputBasic((value) => value.trim() !== '');
-  
+  const {
+    resetInput: resetLastName,
+    inputValue: lastNameValue,
+    isInputValidate: isLastNameValidate,
+    isUserChanged: isLastNameChanged,
+    inputValueHandler: lastNameHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    inputValidation: lastNameValidation,
+  } = useInputBasic((value) => String(value).trim() !== '');
   const {
     resetInput: resetEmail,
     inputValue: emailValue,
@@ -20,8 +28,9 @@ const BasicForm = (props) => {
     inputValidation: emailValidation,
   } = useInputBasic((value) => String(value).trim().includes('@'));
 
+
   let isBtnHidden = true;
-  if (isFirstNameValidate && isEmailValidate) {
+  if (isFirstNameValidate && isEmailValidate && isLastNameValidate) {
     isBtnHidden = false;
   }
   const submitHandler = (e) => {
@@ -30,7 +39,10 @@ const BasicForm = (props) => {
       return;
     }
     console.log(firstNameValue);
+    console.log(lastNameValue);
+    console.log(emailValue);
     resetFirstName();
+    resetLastName();
     resetEmail();
   };
   return (
@@ -41,10 +53,10 @@ const BasicForm = (props) => {
           <input onChange={firstNameHandler} onBlur={firstNameBlurHandler} type='text' id='name' value={firstNameValue} />
           {isFirstNameChanged ? <p>Please add yout first name</p> : null}
         </div>
-        <div>
-          <label htmlFor='name'>Last Name</label>
-          <input  type='text' id='name' />
-          
+        <div className={lastNameValidation}>
+          <label htmlFor='name'>First Name</label>
+          <input onChange={lastNameHandler} onBlur={lastNameBlurHandler} type='text' id='name' value={lastNameValue} />
+          {isLastNameChanged ? <p>Please add yout Last name</p> : null}
         </div>
       </div>
       <div className={emailValidation}>
