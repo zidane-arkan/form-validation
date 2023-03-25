@@ -26,7 +26,6 @@ const useInputBasic = (inputCondition) => {
     const isUserChanged = !isInputValidate && isInputBlured;
     const inputValidation = isUserChanged ? 'form-control invalid' : 'form-control ';
     //Change Status Input According To user Activity
-    // console.log(isInputValidate);
     const inputValueHandler = (event) => {
         // console.log(isInputValidate);
         dispatchInput({ type: 'INPUT_VALUE', value: event.target.value });
